@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayHere · Satisfaction Client</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("YEt_QsI7UdNpJRWfS");</script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --yellow:  #F5D000;
+  --green:   #1A7A5E;
+  --cyan:    #4DC8C8;
+  --purple:  #8B5CF6;
+  --orange:  #FF5C00;
+  --black:   #111111;
+  --white:   #FFFFFF;
+  --offwhite:#F5F5F2;
+  --creme:   #F5EFE4;
+  --sh-green:#1DB954;
+}
+body {
+  background: var(--creme);
+  font-family: 'Inter', sans-serif;
+  color: var(--black);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: #F5EFE4;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #E0D5C4;
+}
+.hero-title {
+  font-size: clamp(24px, 6vw, 40px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+.hero-title .w1 { color: var(--green); }
+.hero-title .w2 { color: var(--black); }
+.hero-title .w3 { color: var(--purple); }
+.hero-title .w4 { color: var(--orange); }
+.hero-sub {
+  font-size: 13px;
+  color: rgba(0,0,0,0.45);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── LANG BAR ── */
+.lang-bar {
+  background: var(--orange);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.lang-bar label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(0,0,0,0.45);
+}
+.lang-bar select {
+  border: 1px solid rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.12);
+  padding: 5px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 700;
+  color: var(--white); border-radius: 2px; cursor: pointer;
+}
+.lang-bar select option { background: #e04d00; }
+
+/* ── COLOR BAND ── */
+.color-band {
+  display: flex;
+  height: 6px;
+}
+.color-band span { flex: 1; }
+.cb1 { background: var(--yellow); }
+.cb2 { background: var(--green); }
+.cb3 { background: var(--cyan); }
+.cb4 { background: var(--purple); }
+.cb5 { background: var(--orange); }
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+
+/* ── SECTION BASE ── */
+.section {
+  padding: 22px 20px;
+  margin: 0;
+  position: relative;
+}
+.section + .section { border-top: 1px solid rgba(0,0,0,0.06); }
+
+/* ── SECTION COLORS ── */
+.s-yellow  { background: var(--creme); }
+.s-green   { background: var(--creme); }
+.s-cyan    { background: var(--creme); }
+.s-purple  { background: var(--creme); }
+.s-orange  { background: var(--creme); }
+.s-white   { background: var(--creme); }
+.s-offwhite{ background: var(--creme); }
+.s-black   { background: var(--black); }
+
+/* ── CREAM SECTIONS — unified text/button colors ── */
+.s-yellow .section-tag,
+.s-green .section-tag,
+.s-cyan .section-tag,
+.s-purple .section-tag,
+.s-orange .section-tag { color: var(--orange); }
+
+.s-yellow .section-q,
+.s-green .section-q,
+.s-cyan .section-q,
+.s-purple .section-q,
+.s-orange .section-q { color: var(--black); }
+
+.s-yellow .field label,
+.s-green .field label,
+.s-cyan .field label,
+.s-purple .field label { color: #888; }
+
+.s-yellow .field input,
+.s-green .field input,
+.s-cyan .field input,
+.s-purple .field input { background: #fff; border-color: #DDD3C2; color: var(--black); }
+
+.s-yellow .field input:focus,
+.s-green .field input:focus,
+.s-cyan .field input:focus,
+.s-purple .field input:focus { border-color: var(--black); }
+
+.s-yellow .err-msg,
+.s-green .err-msg,
+.s-cyan .err-msg,
+.s-purple .err-msg { color: #c00; }
+
+/* Score buttons on cream */
+.s-green .score-btn,
+.s-cyan .score-btn,
+.s-purple .score-btn { background: #fff; border-color: #DDD3C2; color: #aaa; }
+.s-green .score-btn:hover,
+.s-cyan .score-btn:hover,
+.s-purple .score-btn:hover { border-color: var(--black); color: var(--black); }
+.s-green .score-btn.active,
+.s-cyan .score-btn.active,
+.s-purple .score-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
+
+/* Radio on cream */
+.s-purple .radio-btn { background: #fff; border-color: #DDD3C2; color: #aaa; }
+.s-purple .radio-btn:hover { border-color: var(--black); color: var(--black); background: #fff; }
+.s-purple .radio-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
+
+/* Textarea on cream */
+.s-orange textarea { background: #fff; border-color: #DDD3C2; color: var(--black); }
+.s-orange textarea::placeholder { color: #bbb; }
+.s-orange textarea:focus { border-color: var(--black); }
+
+/* ── SHARED SECTION ELEMENTS ── */
+.section-tag {
+  display: block;
+  font-size: 9px; font-weight: 800;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.section-q {
+  font-size: 15px; font-weight: 700;
+  line-height: 1.4; margin-bottom: 14px;
+}
+
+/* ── SCORE BUTTONS ── */
+.score-row { display: flex; gap: 6px; }
+.score-btn {
+  flex: 1; height: 48px;
+  border: 2px solid #ddd;
+  background: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px; font-weight: 800;
+  color: #bbb; cursor: pointer;
+  border-radius: 3px; transition: all 0.12s;
+}
+
+/* ── RADIO ── */
+.radio-row { display: flex; gap: 8px; }
+.radio-btn {
+  flex: 1; height: 48px;
+  border: 2px solid #ddd;
+  background: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: #bbb; cursor: pointer;
+  border-radius: 3px; transition: all 0.12s;
+}
+
+/* ── FIELDS ── */
+.field-group { display: flex; gap: 10px; margin-bottom: 12px; }
+.field-group .field { flex: 1; }
+.field { margin-bottom: 12px; }
+.field label {
+  display: block;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  border: 2px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.5);
+  padding: 10px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--black); border-radius: 3px;
+  outline: none; transition: all 0.12s;
+}
+.field input.error { border-color: #e00 !important; }
+.err-msg { font-size: 11px; font-weight: 600; margin-top: 3px; display: none; }
+.optional { font-size: 10px; font-weight: 400; letter-spacing: 0; margin-left: 4px; text-transform: none; opacity: 0.5; }
+textarea {
+  width: 100%;
+  border: 2px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.5);
+  padding: 10px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--black); border-radius: 3px;
+  outline: none; resize: none; height: 90px;
+  transition: all 0.12s;
+}
+
+/* ── SUBMIT ── */
+.submit-section {
+  background: var(--black);
+  padding: 20px;
+}
+.btn {
+  width: 100%; height: 54px;
+  background: var(--yellow);
+  color: var(--black);
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 900;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; border-radius: 3px; transition: all 0.15s;
+}
+.btn:hover { background: #e8c400; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── MERCI ── */
+.merci { display: none; text-align: center; padding: 80px 24px; background: var(--creme); }
+.merci-bands { display: flex; height: 8px; margin-bottom: 40px; border-radius: 4px; overflow: hidden; }
+.merci-bands span { flex: 1; }
+.merci h2 { font-size: 36px; font-weight: 900; color: var(--black); margin-bottom: 10px; }
+.merci p { font-size: 14px; color: #777; line-height: 1.7; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--black);
+  text-align: center; padding: 16px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <svg width="170" height="34" viewBox="0 0 170 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="17" r="10" fill="#1DB954"/>
+    <polygon points="22,10 36,17 22,24" fill="#FF5C00"/>
+    <text x="44" y="23" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#FFFFFF">Stay</text>
+    <text x="96" y="23" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#FF5C00">Here</text>
+  </svg>
+  <div class="hero-title">
+    <span class="w1">the time</span> <span class="w2">is now,</span><br>
+    <span class="w3">the place</span> <span class="w4">is Here.</span>
+  </div>
+  <div class="hero-sub" id="introText">Votre séjour ici compte pour nous.<br>Partagez votre expérience en quelques instants.</div>
+</div>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <label>Langue</label>
+  <select id="langSel" onchange="setLang(this.value)">
+    <option value="fr">Français</option>
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+    <option value="tz">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+    <option value="es">Español</option>
+  </select>
+</div>
+
+<!-- COLOR BAND -->
+<div class="color-band">
+  <span class="cb1"></span><span class="cb2"></span><span class="cb3"></span><span class="cb4"></span><span class="cb5"></span>
+</div>
+
+<!-- CONTAINER -->
+<div class="container">
+
+  <!-- MERCI -->
+  <div class="merci" id="merci">
+    <div class="merci-bands">
+      <span style="background:var(--yellow)"></span>
+      <span style="background:var(--green)"></span>
+      <span style="background:var(--cyan)"></span>
+      <span style="background:var(--purple)"></span>
+      <span style="background:var(--orange)"></span>
+    </div>
+    <h2 id="merciTitle">Merci !</h2>
+    <p id="merciText">Votre avis a bien été transmis.<br>À très bientôt chez StayHere.</p>
+  </div>
+
+  <div id="formWrap">
+
+    <!-- IDENTITÉ — YELLOW -->
+    <div class="section s-yellow">
+      <div class="section-tag" id="lblIdentite">Vos coordonnées</div>
+      <div class="field-group">
+        <div class="field">
+          <label id="lblPrenom">Prénom *</label>
+          <input type="text" id="fPrenom">
+          <div class="err-msg" id="errPrenom">Champ requis</div>
+        </div>
+        <div class="field">
+          <label id="lblNom">Nom *</label>
+          <input type="text" id="fNom">
+          <div class="err-msg" id="errNom">Champ requis</div>
+        </div>
+      </div>
+      <div class="field">
+        <label id="lblEmail">Email <span class="optional" id="lblOpt">(facultatif)</span></label>
+        <input type="email" id="fEmail" placeholder="votre@email.com">
+      </div>
+    </div>
+
+    <!-- NOTE GLOBALE — GREEN -->
+    <div class="section s-green">
+      <div class="section-tag" id="lblGlobalTitle">Expérience globale</div>
+      <div class="section-q" id="lblGlobalQ">Comment évaluez-vous votre séjour dans l'ensemble ?</div>
+      <div class="score-row" id="scoreGlobal">
+        <button class="score-btn" onclick="rate('global',1)">1</button>
+        <button class="score-btn" onclick="rate('global',2)">2</button>
+        <button class="score-btn" onclick="rate('global',3)">3</button>
+        <button class="score-btn" onclick="rate('global',4)">4</button>
+        <button class="score-btn" onclick="rate('global',5)">5</button>
+      </div>
+    </div>
+
+    <!-- NOTE SUITE — CYAN -->
+    <div class="section s-cyan">
+      <div class="section-tag" id="lblSuiteTitle">Votre suite</div>
+      <div class="section-q" id="lblSuiteQ">Comment évaluez-vous le confort et l'équipement de votre suite ?</div>
+      <div class="score-row" id="scoreSuite">
+        <button class="score-btn" onclick="rate('suite',1)">1</button>
+        <button class="score-btn" onclick="rate('suite',2)">2</button>
+        <button class="score-btn" onclick="rate('suite',3)">3</button>
+        <button class="score-btn" onclick="rate('suite',4)">4</button>
+        <button class="score-btn" onclick="rate('suite',5)">5</button>
+      </div>
+    </div>
+
+    <!-- NOTE ÉQUIPE — PURPLE -->
+    <div class="section s-purple">
+      <div class="section-tag" id="lblEquipeTitle">Notre équipe</div>
+      <div class="section-q" id="lblEquipeQ">Comment évaluez-vous l'accueil et le service de notre équipe ?</div>
+      <div class="score-row" id="scoreEquipe">
+        <button class="score-btn" onclick="rate('equipe',1)">1</button>
+        <button class="score-btn" onclick="rate('equipe',2)">2</button>
+        <button class="score-btn" onclick="rate('equipe',3)">3</button>
+        <button class="score-btn" onclick="rate('equipe',4)">4</button>
+        <button class="score-btn" onclick="rate('equipe',5)">5</button>
+      </div>
+    </div>
+
+    <!-- RECOMMANDATION — also purple (reuse) -->
+    <div class="section s-purple" style="border-top: 1px solid rgba(255,255,255,0.12);">
+      <div class="section-q" id="lblRecoQ">Recommanderiez-vous StayHere à votre entourage ?</div>
+      <div class="radio-row">
+        <button class="radio-btn" id="btnOui" onclick="setReco('oui')">✓ &nbsp;<span id="lblOui">Oui</span></button>
+        <button class="radio-btn" id="btnNon" onclick="setReco('non')">✕ &nbsp;<span id="lblNon">Non</span></button>
+      </div>
+    </div>
+
+    <!-- COMMENTAIRE — ORANGE -->
+    <div class="section s-orange">
+      <div class="section-tag" id="lblCommentTitle">Commentaire</div>
+      <div class="section-q" id="lblCommentQ">Un mot sur votre séjour ? Suggestions, moments forts...</div>
+      <textarea id="fComment" placeholder="Votre message..."></textarea>
+    </div>
+
+    <!-- SUBMIT — BLACK -->
+    <div class="submit-section">
+      <button class="btn" id="btnSubmit" onclick="submitForm()">
+        <span id="lblSubmit">Envoyer mon avis →</span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="footer">Casablanca · Rabat · Agadir</div>
+</div>
+
+<script>
+const scores = { global:0, suite:0, equipe:0 };
+let reco = '';
+const T = {
+  fr: { intro:"Votre séjour ici compte pour nous.<br>Partagez votre expérience en quelques instants.", identite:"Vos coordonnées", prenom:"Prénom *", nom:"Nom *", email:"Email", opt:"(facultatif)", globalTitle:"Expérience globale", globalQ:"Comment évaluez-vous votre séjour dans l'ensemble ?", suiteTitle:"Votre suite", suiteQ:"Comment évaluez-vous le confort et l'équipement de votre suite ?", equipeTitle:"Notre équipe", equipeQ:"Comment évaluez-vous l'accueil et le service de notre équipe ?", recoQ:"Recommanderiez-vous StayHere à votre entourage ?", oui:"Oui", non:"Non", commentTitle:"Commentaire", commentQ:"Un mot sur votre séjour ? Suggestions, moments forts...", submit:"Envoyer mon avis →", merciTitle:"Merci !", merciText:"Votre avis a bien été transmis.<br>À très bientôt chez StayHere.", errPrenom:"Champ requis", errNom:"Champ requis", rtl:false },
+  en: { intro:"Your stay here matters to us.<br>Share your experience in just a few moments.", identite:"Your details", prenom:"First name *", nom:"Last name *", email:"Email", opt:"(optional)", globalTitle:"Overall experience", globalQ:"How would you rate your stay overall?", suiteTitle:"Your suite", suiteQ:"How would you rate the comfort and equipment of your suite?", equipeTitle:"Our team", equipeQ:"How would you rate our team's welcome and service?", recoQ:"Would you recommend StayHere to friends or family?", oui:"Yes", non:"No", commentTitle:"Comment", commentQ:"A word about your stay? Suggestions, highlights...", submit:"Submit my review →", merciTitle:"Thank you!", merciText:"Your feedback has been received.<br>We hope to welcome you back soon.", errPrenom:"Required field", errNom:"Required field", rtl:false },
+  ar: { intro:"إقامتكم لدينا تعني لنا الكثير.<br>شاركونا تجربتكم في لحظات.", identite:"بياناتكم", prenom:"الاسم الأول *", nom:"اللقب *", email:"البريد الإلكتروني", opt:"(اختياري)", globalTitle:"التجربة الإجمالية", globalQ:"كيف تقيّمون إقامتكم بشكل عام؟", suiteTitle:"جناحكم", suiteQ:"كيف تقيّمون راحة وتجهيزات جناحكم؟", equipeTitle:"فريقنا", equipeQ:"كيف تقيّمون استقبال وخدمة فريقنا؟", recoQ:"هل ستوصون بـ StayHere لأصدقائكم وعائلتكم؟", oui:"نعم", non:"لا", commentTitle:"تعليق", commentQ:"كلمة عن إقامتكم؟ اقتراحات، لحظات مميزة...", submit:"إرسال رأيي ←", merciTitle:"شكراً!", merciText:"تم استلام ملاحظاتكم.<br>نتطلع لاستقبالكم مجدداً.", errPrenom:"حقل مطلوب", errNom:"حقل مطلوب", rtl:true },
+  tz: { intro:"ⵜⴰⴷⵡⵉⵍⵜ ⵏⵏⵓⵏ ⵜⵓⵙⵉⴷ ⴰⵔ ⵏⵜⵜⵡⴰⵍⴰ.<br>ⴱⴹⵓ ⵜⴰⵎⵓⵔⵜ ⵏⵏⵓⵏ.", identite:"ⵉⵙⵎⴰⵡⵏ", prenom:"ⴰⵙⵎ ⴰⵎⵣⵡⴰⵔⵓ *", nom:"ⴰⵙⵎ ⴰⴳⵔⴰⵡ *", email:"ⵉⵎⴰⵢⵍ", opt:"(ⵓⵔ ⵉⵍⵍⴰ)", globalTitle:"ⵜⴰⵙⵏⴰⵖⵜ ⵜⴰⵎⴰⵜⵜⴰⵢⵜ", globalQ:"ⵎⴰⵏⵉⴽ ⵜⵙⵏⵜⵉⵎ ⵜⴰⴷⵡⵉⵍⵜ ⵏⵏⵓⵏ?", suiteTitle:"ⵜⴰⴷⴷⴰⵔⵜ ⵏⵏⵓⵏ", suiteQ:"ⵎⴰⵏⵉⴽ ⵜⵙⵏⵜⵉⵎ ⵜⴰⵎⴰⵢⵏⵓⵜ ⵏ ⵜⴰⴷⴷⴰⵔⵜ?", equipeTitle:"ⴰⵙⴳⵔⴰⵡ ⵏⵏⵖ", equipeQ:"ⵎⴰⵏⵉⴽ ⵜⵙⵏⵜⵉⵎ ⵜⵉⵡⵓⵔⵉ ⵏ ⵓⵙⴳⵔⴰⵡ?", recoQ:"ⵎⴰⵜⵛ ⵜⵙⵏⵓⴱⴱⵓⵜⵎ StayHere?", oui:"ⵢⵉⵀ", non:"ⵓⵀⵓ", commentTitle:"ⴰⵙⴼⵙⵔ", commentQ:"ⴽⵔⴰ ⵏ ⵡⴰⵡⴰⵍ ⴼ ⵜⴰⴷⵡⵉⵍⵜ ⵏⵏⵓⵏ?", submit:"ⴰⵣⵏ ⵓⵍⴰⵡⵏ ⵏⵏⵓⵏ →", merciTitle:"ⵜⴰⵏⵎⵎⵉⵔⵜ!", merciText:"ⵉⵜⵜⵓⵙⵎⴷ ⵓⵙⴼⵙⵔ ⵏⵏⵓⵏ.<br>ⵏⴼⵔⴰⵔ ⵉⵖ ⴰⴷ ⴰⵡⵏ ⵏⵙⵙⵉⵡⴹ.", errPrenom:"ⵉⵍⵍⴰ", errNom:"ⵉⵍⵍⴰ", rtl:false },
+  es: { intro:"Su estancia aquí es importante para nosotros.<br>Comparta su experiencia en unos momentos.", identite:"Sus datos", prenom:"Nombre *", nom:"Apellido *", email:"Correo electrónico", opt:"(opcional)", globalTitle:"Experiencia general", globalQ:"¿Cómo valora su estancia en general?", suiteTitle:"Su suite", suiteQ:"¿Cómo valora el confort y equipamiento de su suite?", equipeTitle:"Nuestro equipo", equipeQ:"¿Cómo valora la acogida y el servicio de nuestro equipo?", recoQ:"¿Recomendaría StayHere a sus amigos o familia?", oui:"Sí", non:"No", commentTitle:"Comentario", commentQ:"¿Alguna palabra sobre su estancia?", submit:"Enviar mi opinión →", merciTitle:"¡Gracias!", merciText:"Su opinión ha sido recibida.<br>Esperamos volver a recibirle pronto.", errPrenom:"Campo requerido", errNom:"Campo requerido", rtl:false }
+};
+let currentLang = 'fr';
+function setLang(lang) {
+  currentLang = lang;
+  const t = T[lang];
+  document.getElementById('introText').innerHTML = t.intro;
+  document.getElementById('lblIdentite').textContent = t.identite;
+  document.getElementById('lblPrenom').childNodes[0].textContent = t.prenom;
+  document.getElementById('lblNom').childNodes[0].textContent = t.nom;
+  document.getElementById('lblEmail').childNodes[0].textContent = t.email+' ';
+  document.getElementById('lblOpt').textContent = t.opt;
+  document.getElementById('lblGlobalTitle').textContent = t.globalTitle;
+  document.getElementById('lblGlobalQ').textContent = t.globalQ;
+  document.getElementById('lblSuiteTitle').textContent = t.suiteTitle;
+  document.getElementById('lblSuiteQ').textContent = t.suiteQ;
+  document.getElementById('lblEquipeTitle').textContent = t.equipeTitle;
+  document.getElementById('lblEquipeQ').textContent = t.equipeQ;
+  document.getElementById('lblRecoQ').textContent = t.recoQ;
+  document.getElementById('lblOui').textContent = t.oui;
+  document.getElementById('lblNon').textContent = t.non;
+  document.getElementById('lblCommentTitle').textContent = t.commentTitle;
+  document.getElementById('lblCommentQ').textContent = t.commentQ;
+  document.getElementById('lblSubmit').textContent = t.submit;
+  document.getElementById('errPrenom').textContent = t.errPrenom;
+  document.getElementById('errNom').textContent = t.errNom;
+  document.getElementById('merciTitle').textContent = t.merciTitle;
+  document.getElementById('merciText').innerHTML = t.merciText;
+  document.getElementById('formWrap').style.direction = t.rtl ? 'rtl' : 'ltr';
+}
+function rate(cat, val) {
+  scores[cat] = val;
+  const id = 'score'+cat.charAt(0).toUpperCase()+cat.slice(1);
+  document.getElementById(id).querySelectorAll('.score-btn').forEach((b,i) => b.classList.toggle('active', i+1===val));
+}
+function setReco(val) {
+  reco = val;
+  document.getElementById('btnOui').classList.toggle('active', val==='oui');
+  document.getElementById('btnNon').classList.toggle('active', val==='non');
+}
+function submitForm() {
+  const prenom = document.getElementById('fPrenom');
+  const nom = document.getElementById('fNom');
+  const errP = document.getElementById('errPrenom');
+  const errN = document.getElementById('errNom');
+  let ok = true;
+  if (!prenom.value.trim()) { prenom.classList.add('error'); errP.style.display='block'; ok=false; } else { prenom.classList.remove('error'); errP.style.display='none'; }
+  if (!nom.value.trim()) { nom.classList.add('error'); errN.style.display='block'; ok=false; } else { nom.classList.remove('error'); errN.style.display='none'; }
+  if (!ok) return;
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled=true; btn.style.opacity='0.5';
+  const t = T[currentLang];
+  const params = {
+    langue: document.getElementById('langSel').options[document.getElementById('langSel').selectedIndex].text,
+    prenom: prenom.value.trim(), nom: nom.value.trim(),
+    email: document.getElementById('fEmail').value.trim()||'—',
+    note_globale: scores.global||'—', note_suite: scores.suite||'—', note_equipe: scores.equipe||'—',
+    recommandation: reco ? (reco==='oui' ? t.oui : t.non) : '—',
+    commentaire: document.getElementById('fComment').value.trim()||'—',
+    date: new Date().toLocaleString('fr-MA',{timeZone:'Africa/Casablanca'})
+  };
+  emailjs.send('service_jd3glse','ceoiooq',params).then(()=>showMerci()).catch(()=>showMerci());
+}
+function showMerci() {
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('merci').style.display='block';
+}
+</script>
+</body>
+</html>
